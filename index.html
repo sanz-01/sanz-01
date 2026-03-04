@@ -765,7 +765,7 @@ initLike();
 
 <script>
 (function(){
-   emailjs.init(Kmo7cxNrvkXcft_Lb);
+   emailjs.init("Kmo7cxNrvkXcft_Lb");
 })();
 </script>
 
@@ -775,8 +775,8 @@ document.getElementById("contact-form")
   event.preventDefault();
 
   emailjs.sendForm(
-    service_1glau7h,
-    template_zwuyaqa,
+    "service_1glau7h",
+    "template_zwuyaqa",
     this
   )
   .then(() => alert("Sent ✅"))
