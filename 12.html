@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Conversational AI for Municipal Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+    }
+
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      background: #34495e;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .hero {
+      padding: 50px;
+      text-align: center;
+      background: linear-gradient(to right, #3498db, #2ecc71);
+      color: white;
+    }
+
+    .section {
+      padding: 40px;
+      text-align: center;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      margin: 15px;
+      padding: 20px;
+      width: 250px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .chatbox {
+      width: 300px;
+      margin: auto;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .chat-header {
+      background: #3498db;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .chat-messages {
+      height: 250px;
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 14px;
+    }
+
+    .chat-input {
+      display: flex;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-top: 1px solid #ccc;
+    }
+
+    .chat-input button {
+      padding: 10px;
+      background: #2ecc71;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Conversational AI for Municipal Services</h1>
+  <p>Smart Governance through AI Chatbots</p>
+</header>
+
+<nav>
+  <a href="#">Home</a>
+  <a href="#">Features</a>
+  <a href="#">Demo</a>
+  <a href="#">About</a>
+</nav>
+
+<div class="hero">
+  <h2>Transforming Citizen Interaction</h2>
+  <p>24/7 AI-powered assistance for complaints, services, and queries</p>
+</div>
+
+<div class="section">
+  <h2>Key Features</h2>
+  <div class="features">
+    <div class="card">
+      <h3>Complaint Registration</h3>
+      <p>Register issues like potholes, garbage, water supply instantly.</p>
+    </div>
+
+    <div class="card">
+      <h3>24/7 Availability</h3>
+      <p>AI chatbot works anytime without human dependency.</p>
+    </div>
+
+    <div class="card">
+      <h3>Multi-language Support</h3>
+      <p>Supports Hindi, English, and regional languages.</p>
+    </div>
+
+    <div class="card">
+      <h3>Real-time Updates</h3>
+      <p>Track complaint status instantly.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Live Chatbot Demo</h2>
+
+  <div class="chatbox">
+    <div class="chat-header">Municipal AI Bot</div>
+
+    <div class="chat-messages" id="chatMessages">
+      <p><b>Bot:</b> Hello! How can I help you today?</p>
+    </div>
+
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>About the Project</h2>
+  <p>
+    This system uses Conversational AI to automate municipal services like complaint handling,
+    bill inquiries, and service requests. It improves efficiency, reduces workload, and enhances citizen satisfaction.
+  </p>
+</div>
+
+<footer>
+  <p>© 2026 Smart City AI Project | Developed by Team Innovators</p>
+</footer>
+
+<script>
+function sendMessage() {
+  let input = document.getElementById("userInput");
+  let message = input.value.trim();
+
+  if (message === "") return;
+
+  let chat = document.getElementById("chatMessages");
+
+  chat.innerHTML += "<p><b>You:</b> " + message + "</p>";
+
+  let reply = getBotReply(message.toLowerCase());
+
+  setTimeout(() => {
+    chat.innerHTML += "<p><b>Bot:</b> " + reply + "</p>";
+    chat.scrollTop = chat.scrollHeight;
+  }, 500);
+
+  input.value = "";
+}
+
+function getBotReply(msg) {
+  if (msg.includes("water")) {
+    return "Water supply issue registered successfully.";
+  }
+  else if (msg.includes("garbage")) {
+    return "Garbage complaint noted. Our team will respond soon.";
+  }
+  else if (msg.includes("road") || msg.includes("pothole")) {
+    return "Road repair request has been submitted.";
+  }
+  else if (msg.includes("bill")) {
+    return "You can check your bill status on the official portal.";
+  }
+  else {
+    return "Sorry, I didn't understand. Please try again.";
+  }
+}
+</script>
+
+</body>
+</html>
