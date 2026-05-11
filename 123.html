@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Assist Pro | Premium Academic Help</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Animations Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    .gradient-text { background: linear-gradient(90deg, #facc15, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .glass { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+    .step-hidden { display: none; }
+  </style>
+</head>
+<body class="bg-gray-950 text-white font-sans">
+
+<!-- Navbar -->
+<nav class="flex justify-between items-center p-6 bg-gray-950/80 sticky top-0 z-50 backdrop-blur-md border-b border-white/10">
+  <h1 class="text-2xl font-bold tracking-tighter">STUDENT <span class="text-yellow-400">ASSIST</span> PRO</h1>
+  <div class="space-x-8 hidden md:flex items-center">
+    <a href="#services" class="hover:text-yellow-400 transition">Services</a>
+    <a href="#order" class="bg-yellow-400 text-black px-5 py-2 rounded-full font-bold hover:scale-105 transition">Order Now</a>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="relative h-[80vh] flex flex-col justify-center items-center text-center px-5">
+  <div class="absolute inset-0 bg-blue-500/10 blur-[120px] rounded-full"></div>
+  <h2 class="text-6xl md:text-8xl font-black mb-6" data-aos="fade-up">Deliver <span class="gradient-text">Excellence.</span></h2>
+  <p class="text-gray-400 text-lg md:text-2xl max-w-2xl" data-aos="fade-up" data-aos-delay="200">The ultimate destination for Assignments, PPTs, and Coding projects.</p>
+</section>
+
+<!-- Order Flow Section -->
+<section id="order" class="py-20 px-6 bg-gray-900/50">
+  <div class="max-w-3xl mx-auto glass p-8 rounded-3xl" data-aos="zoom-in">
+    <h2 class="text-3xl font-bold mb-8 text-center">Place Your Order</h2>
+    
+    <!-- Step 1: Select Work -->
+    <div id="step1">
+      <p class="mb-4 text-gray-400">What do you need help with?</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <button onclick="nextStep(2, 'Assignment')" class="p-4 bg-gray-800 rounded-xl hover:border-yellow-400 border border-transparent transition text-left">📝 Assignment</button>
+        <button onclick="nextStep(2, 'PPT/Project')" class="p-4 bg-gray-800 rounded-xl hover:border-yellow-400 border border-transparent transition text-left">📊 PPT & Projects</button>
+        <button onclick="nextStep(2, 'Coding')" class="p-4 bg-gray-800 rounded-xl hover:border-yellow-400 border border-transparent transition text-left">💻 Coding Help</button>
+        <button onclick="nextStep(2, 'Other')" class="p-4 bg-gray-800 rounded-xl hover:border-yellow-400 border border-transparent transition text-left">✨ Other</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Personal Details -->
+    <div id="step2" class="step-hidden">
+      <button onclick="prevStep(1)" class="text-sm text-gray-500 mb-4">← Back</button>
+      <div class="space-y-4">
+        <input id="userName" type="text" placeholder="Full Name" class="w-full p-4 rounded-xl bg-gray-800 border border-white/10 focus:border-yellow-400 outline-none" />
+        <input id="userPhone" type="tel" placeholder="WhatsApp Number" class="w-full p-4 rounded-xl bg-gray-800 border border-white/10 focus:border-yellow-400 outline-none" />
+        <textarea id="workDetails" placeholder="Describe your requirements (Topics, deadline, etc.)" class="w-full p-4 rounded-xl bg-gray-800 border border-white/10 h-32 focus:border-yellow-400 outline-none"></textarea>
+        <button onclick="nextStep(3)" class="w-full bg-yellow-400 text-black font-bold py-4 rounded-xl">Next: Payment</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Payment -->
+    <div id="step3" class="step-hidden text-center">
+      <h3 class="text-2xl font-bold mb-4">Secure Payment</h3>
+      <p class="text-gray-400 mb-6">Scan to pay and click "Verify" to send details on WhatsApp.</p>
+      <img src="qr.png" class="mx-auto w-64 h-64 rounded-2xl border-4 border-yellow-400 mb-6" alt="UPI QR" />
+      <button onclick="finalizeOrder()" class="w-full bg-green-500 text-black font-bold py-4 rounded-xl shadow-lg shadow-green-500/20">I've Paid - Finalize Order</button>
+    </div>
+  </div>
+</section>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 1000, once: true });
+
+  let orderData = { category: '', name: '', phone: '', details: '' };
+
+  function nextStep(step, val) {
+    if(val) orderData.category = val;
+    document.querySelectorAll('[id^="step"]').forEach(el => el.classList.add('step-hidden'));
+    document.getElementById('step' + step).classList.remove('step-hidden');
+  }
+
+  function prevStep(step) {
+    nextStep(step);
+  }
+
+  function finalizeOrder() {
+    orderData.name = document.getElementById('userName').value;
+    orderData.phone = document.getElementById('userPhone').value;
+    orderData.details = document.getElementById('workDetails').value;
+
+    if(!orderData.name || !orderData.phone) {
+        alert("Please fill in your contact details.");
+        return;
+    }
+
+    const message = `*New Order Alert!*%0A%0A*Service:* ${orderData.category}%0A*Name:* ${orderData.name}%0A*WhatsApp:* ${orderData.phone}%0A*Work:* ${orderData.details}%0A%0A_Payment confirmed via QR._`;
+    
+    // Redirect to your WhatsApp
+    window.open(`https://wa.me/917217800442?text=${message}`, '_blank');
+    
+    // Call backend to save lead
+    fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderData)
+    });
+  }
+</script>
+</body>
+</html>
